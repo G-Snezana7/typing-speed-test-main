@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="./normalize.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Frontend Mentor | Typing Speed Test</title>
+    <script defer src="./main1.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__container">
+        <a href="/" class="header__logo">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="./assets/images/logo-large.svg"
+            />
+            <img
+              class="header__logo-img"
+              src="./assets/images/logo-small.svg"
+              alt="Logo"
+              width="32"
+              height="32"
+            />
+          </picture>
+        </a>
+        <div class="achievement">
+          <img
+            class="achievement__img"
+            src="assets/images/icon-personal-best.svg"
+            alt=""
+            width="19"
+          />
+          <span class="achievement__text">Best: </span>
+          <span class="achievement__text-desc">Personal best: </span>
+          <span id="record-js" class="achievement__value">0 WPM</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="stats-js" class="sections-wrapper">
+        <section class="stats-bar">
+          <div class="container stats-bar__container">
+            <ul class="stats-bar__list list-reset">
+              <li class="stats-bar__item">
+                <div class="stats-bar__item-wrapper">
+                  <span class="stats-bar__label stats-bar__label--uppercase"
+                    >WPM:</span
+                  >
+                  <output class="stats-bar__value">0</output>
+                </div>
+              </li>
+              <li class="stats-bar__item stats-bar__item--border">
+                <div class="stats-bar__item-wrapper">
+                  <span class="stats-bar__label">Accuracy:</span>
+                  <output class="stats-bar__value stats-bar__value--accuracy"
+                    >0</output
+                  >
+                </div>
+              </li>
+              <li class="stats-bar__item">
+                <div class="stats-bar__item-wrapper">
+                  <span class="stats-bar__label">Time:</span>
+                  <output
+                    id="start-timer-js"
+                    class="stats-bar__value stats-bar__value--timer"
+                    >0:46</output
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class="controls">
+          <div class="container controls__container">
+            <details class="controls__details">
+              <summary class="controls__select">
+                <span class="controls__select-text"> Easy </span>
+
+                <img
+                  class="controls__select-arrow"
+                  src="./assets/images/icon-down-arrow.svg"
+                  alt=""
+                />
+              </summary>
+              <ul class="controls__list list-reset">
+                <li class="controls__item">
+                  <label
+                    class="controls__label"
+                    data-setting="difficulty"
+                    data-value="easy"
+                  >
+                    <input
+                      class="controls__radio"
+                      name="difficulty"
+                      type="radio"
+                      value="easy"
+                    />
+                    Easy
+                  </label>
+                </li>
+                <li class="controls__item">
+                  <label
+                    class="controls__label"
+                    data-setting="difficulty"
+                    data-value="medium"
+                  >
+                    <input
+                      class="controls__radio"
+                      name="difficulty"
+                      type="radio"
+                      value="medium"
+                    />
+                    Medium
+                  </label>
+                </li>
+                <li class="controls__item">
+                  <label
+                    class="controls__label"
+                    data-setting="difficulty"
+                    data-value="hard"
+                  >
+                    <input
+                      class="controls__radio"
+                      name="difficulty"
+                      type="radio"
+                      value="hard"
+                    />
+                    Hard
+                  </label>
+                </li>
+              </ul>
+            </details>
+            <details class="controls__details">
+              <summary class="controls__select">
+                <span class="controls__select-text"> Timed (60s) </span>
+
+                <img
+                  class="controls__select-arrow"
+                  src="./assets/images/icon-down-arrow.svg"
+                  alt=""
+                />
+              </summary>
+              <ul class="controls__list controls__list--mode list-reset">
+                <li class="controls__item">
+                  <label
+                    class="controls__label"
+                    data-setting="mode"
+                    data-value="timed"
+                  >
+                    <input
+                      class="controls__radio"
+                      name="mode"
+                      type="radio"
+                      value="timed"
+                    />
+                    Timed (60s)
+                  </label>
+                </li>
+                <li class="controls__item">
+                  <label
+                    class="controls__label"
+                    data-setting="mode"
+                    data-value="passage"
+                  >
+                    <input
+                      class="controls__radio"
+                      name="mode"
+                      type="radio"
+                      value="passage"
+                    />
+                    Passage
+                  </label>
+                </li>
+              </ul>
+            </details>
+          </div>
+        </section>
+
+        <section class="controls-bar">
+          <div class="container controls-bar__container">
+            <div class="controls-bar__group controls-bar__group--difficulty">
+              <span class="controls-bar__label">Difficulty:</span>
+              <div class="controls-bar__options">
+                <button
+                  class="controls-bar__btn controls-bar__btn--active btn-reset"
+                  data-setting="difficulty"
+                  data-value="easy"
+                >
+                  Easy
+                </button>
+
+                <button
+                  class="controls-bar__btn btn-reset"
+                  data-setting="difficulty"
+                  data-value="medium"
+                >
+                  Medium
+                </button>
+
+                <button
+                  class="controls-bar__btn btn-reset"
+                  data-setting="difficulty"
+                  data-value="hard"
+                >
+                  Hard
+                </button>
+              </div>
+            </div>
+            <div class="controls-bar__group controls-bar__group--mode">
+              <span class="controls-bar__label">Mode:</span>
+              <div class="controls-bar__options">
+                <button
+                  class="controls-bar__btn controls-bar__btn--active btn-reset"
+                  data-setting="mode"
+                  data-value="timed"
+                >
+                  Timed (60s)
+                </button>
+                <button
+                  class="controls-bar__btn controls-bar__btn--passage btn-reset"
+                  data-setting="mode"
+                  data-value="passage"
+                >
+                  Passage
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section id="test-js" class="test">
+        <div class="container">
+          <div class="test__display">
+            <textarea
+              id="hidden-input"
+              class="visually-hidden"
+              aria-label="Type here"
+              autocomplete="off"
+              autofocus
+            ></textarea>
+            <div id="words-wrapper" class="test__words"></div>
+          </div>
+
+          <div id="not-started-js" class="modal-not-started">
+            <button class="btn-reset modal-not-started__btn">
+              Start Typing Test
+            </button>
+            <p class="modal-not-started__text">
+              Or click the text and start typing
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div id="results-js" class="modal modal--hidden">
+        <div class="container modal__container">
+          <div
+            id="completed-js"
+            class="modal__header modal__svg modal__header-results"
+          >
+            <div class="modal__wrapper-img">
+              <img
+                class="modal__img"
+                src="./assets/images/icon-completed.svg"
+                alt="Complete"
+              />
+            </div>
+
+            <h2 class="title modal__title">Test Complete!</h2>
+            <p class="modal__message">
+              Solid run. Keep pushing to beat your high score.
+            </p>
+          </div>
+
+          <div id="new-result-js" class="modal__header modal__header-new">
+            <img
+              class="modal__img"
+              src="./assets/images/icon-new-pb.svg"
+              alt="Complete"
+            />
+            <h2 class="title modal__title">High Score Smashed!</h2>
+            <p class="modal__message">
+              You'are getting faster. That was incredible typing
+            </p>
+          </div>
+
+          <div
+            id="baseline-js"
+            class="modal__header modal__svg modal__header-baseline"
+          >
+            <div class="modal__wrapper-img">
+              <img
+                class="modal__img"
+                src="./assets/images/icon-completed.svg"
+                alt="Complete"
+              />
+            </div>
+            <h2 class="title modal__title">Baseline Established!</h2>
+            <p class="modal__message">
+              You've set the bar. Now the real challenge begins-time to beat it.
+            </p>
+          </div>
+
+          <div class="modal__stats">
+            <div class="modal__stat-item">
+              <span class="modal__stat-title">WPM:</span>
+              <strong
+                class="modal__stat-value modal__stat-value--wpm"
+                id="final-wpm"
+                >0</strong
+              >
+            </div>
+            <div class="modal__stat-item">
+              <span class="modal__stat-title">Accuracy:</span>
+              <strong
+                class="modal__stat-value modal__stat-value--accuraty"
+                id="accuracy-js"
+                >0%</strong
+              >
+            </div>
+            <div class="modal__stat-item">
+              <span class="modal__stat-title"> Characters</span>
+              <div class="modal__stats-wrapper">
+                <strong
+                  id="correctChars-js"
+                  class="modal__stat-value modal__stat-value--correct"
+                  >0</strong
+                >
+                <span class="modal__stat-value modal__stat-value--divider"
+                  >/</span
+                >
+                <strong
+                  id="errorChars-js"
+                  class="modal__stat-value modal__stat-value--errors"
+                  >0</strong
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <img
+          class="modal__confetti modal__confetti--hidden"
+          src="./assets/images/pattern-confetti.svg"
+          alt=""
+        />
+      </div>
+      <div class="toolbar">
+        <button
+          id="restart-js"
+          class="toolbar__btn btn-reset"
+          data-state="test"
+          data-text-test="Restart Test"
+          data-text-baseline="Beat This Score"
+          data-text-complete="Go Again"
+          data-text-complete-desktop="Beat This Score"
+        >
+          <span id="toolbar__btn-text"> Restart Test </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M1.563 1.281h.949c.246 0 .422.211.422.457l-.07 3.446a8.6 8.6 0 0 1 7.277-3.868c4.816 0 8.718 3.938 8.718 8.72-.035 4.816-3.937 8.683-8.718 8.683a8.86 8.86 0 0 1-5.871-2.215.446.446 0 0 1 0-.633l.703-.703c.14-.14.386-.14.562 0 1.23 1.09 2.813 1.723 4.606 1.723A6.88 6.88 0 0 0 17.03 10c0-3.797-3.093-6.89-6.89-6.89-2.813 0-5.203 1.687-6.293 4.078l4.43-.106c.245 0 .456.176.456.422v.95c0 .245-.21.421-.421.421h-6.75a.406.406 0 0 1-.422-.422v-6.75c0-.21.175-.422.422-.422"
+            />
+          </svg>
+        </button>
+      </div>
+    </main>
+
+    <footer class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+      Coded by <a href="#">Your Name Here</a>.
+    </footer>
+  </body>
+</html>
