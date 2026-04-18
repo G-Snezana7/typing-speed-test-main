@@ -25,6 +25,7 @@ const accuracyUI = statsValues[1];
 let currentWpm = 0;
 let correctChars = 0;
 let errorCount = 0;
+let charSpans = [];
 let globalAccuracy = 100;
 let timeLeft = 60;
 let seconds = 0;
@@ -137,29 +138,38 @@ async function loadNewPassage(difficulty = "easy") {
   }
 }
 
+
 function renderText(text) {
-  textField.innerHTML = "";
-  const localFragment = document.createDocumentFragment();
-  text.split("").forEach((char, i) => {
-    const span = document.createElement("span");
-    span.className = "char";
-    if (i === 0) span.classList.add("char--current");
-    span.textContent = char;
-    localFragment.appendChild(span);
-  });
-  textField.appendChild(localFragment);
+    textField.innerHTML = "";
+    charSpans = []; // Очищаем старые ссылки
+    const localFragment = document.createDocumentFragment();
+    text.split("").forEach((char, i) => {
+        const span = document.createElement("span");
+        span.className = "char";
+        if (i === 0) span.classList.add("char--current");
+        span.textContent = char;
+        localFragment.appendChild(span);
+        charSpans.push(span); // Сохраняем ссылку в массив
+    });
+    textField.appendChild(localFragment);
 }
 
-function refreshVisuals(userChars) {
-  const spans = textField.querySelectorAll(".char");
-  spans.forEach((span, i) => {
-    const uChar = userChars[i];
-    span.classList.remove("char--correct", "char--error", "char--current");
+function updateCharStatus(index, userChar, isBackspace) {
+  const span = charSpans[index];
+  if (!span) return;
 
-    if (uChar == null) {
-      if (i === userChars.length) span.classList.add("char--current");
-    } else if (uChar === span.textContent) {
+  if (isBackspace) {
+    // Если стерли правильную букву — уменьшаем счетчик
+    if (span.classList.contains("char--correct")) {
+      correctChars--;
+    }
+    span.classList.remove("char--correct", "char--error", "char--current");
+    span.classList.add("char--current");
+  } else {
+    span.classList.remove("char--current");
+    if (userChar === span.textContent) {
       span.classList.add("char--correct");
+      correctChars++; // Увеличиваем счетчик правильных букв
     } else {
       span.classList.add("char--error");
       if (!span.dataset.wasWrong) {
@@ -167,9 +177,10 @@ function refreshVisuals(userChars) {
         errorCount++;
       }
     }
-  });
-  correctChars = textField.querySelectorAll(".char--correct").length;
+    if (charSpans[index + 1]) charSpans[index + 1].classList.add("char--current");
+  }
 }
+
 
 // --- 6. СТАТИСТИКА И ФИНИШ ---
 
@@ -261,15 +272,10 @@ function openModal(modalContent) {
 // --- 7. СБРОС И СОСТОЯНИЕ КНОПКИ ---
 
 function resetTest() {
+  lastInputLength = 0;
+  correctChars = 0; // Добавь эту строку
   inputField.value = "";
-  timeLeft = 60;
-  seconds = 0;
-  errorCount = 0;
-  currentWpm = 0;
-  globalAccuracy = 100;
-  stopTimer();
-  updateStatsUI();
-  updateTimerUI(stopwatch ? 0 : 60);
+  // ... остальной код ...
 }
 
 function setButtonState(state) {
@@ -307,19 +313,43 @@ document.addEventListener("click", (e) => {
   target.closest("details")?.removeAttribute("open");
 });
 
-// Ввод текста
+
+
 inputField.addEventListener("input", () => {
+  // 1. Запуск таймера (твоя логика остается)
   if (!timerStarted && inputField.value.length > 0) {
     timerStarted = true;
     startTimer();
   }
 
-  const userChars = inputField.value.split("");
-  refreshVisuals(userChars);
-  calculateStats(inputField.value.length);
+  const currentValue = inputField.value;
+  const currentLength = currentValue.length;
+
+  if (currentLength > lastInputLength) {
+    // А) СЛУЧАЙ: НАПЕЧАТАЛИ БУКВУ
+    const index = currentLength - 1; // Индекс последней нажатой буквы
+    const char = currentValue[index]; // Сама буква, которую нажали
+    
+    // ВЫЗЫВАЕМ ОБНОВЛЕНИЕ: передаем индекс, букву и флаг "не бэкспейс"
+    updateCharStatus(index, char, false);
+    
+  } else if (currentLength < lastInputLength) {
+    // Б) СЛУЧАЙ: НАЖАЛИ BACKSPACE
+    const index = currentLength; // Индекс буквы, которую только что стерли
+    
+    // ВЫЗЫВАЕМ ОБНОВЛЕНИЕ: передаем индекс и флаг "это бэкспейс"
+    updateCharStatus(index, null, true);
+  }
+
+  // Обновляем "память" о длине для следующего раза
+  lastInputLength = currentLength;
+
+  // 2. Статистика (твоя логика)
+  calculateStats(currentLength);
   updateStatsUI();
 
-  if (userChars.length === currentText.length) {
+  // 3. Проверка финиша
+  if (currentLength === currentText.length) {
     finishTest();
   }
 });

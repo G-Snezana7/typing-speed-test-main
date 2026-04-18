@@ -16,6 +16,7 @@
     <script defer src="./main1.js"></script>
   </head>
   <body>
+    <h1 class="visually-hidden">Typing Speed Test</h1>
     <header class="header">
       <div class="container header__container">
         <a href="/" class="header__logo">
@@ -49,7 +50,7 @@
 
     <main class="main">
       <div id="stats-js" class="sections-wrapper">
-        <section class="stats-bar">
+        <div class="stats-bar">
           <div class="container stats-bar__container">
             <ul class="stats-bar__list list-reset">
               <li class="stats-bar__item">
@@ -80,8 +81,8 @@
               </li>
             </ul>
           </div>
-        </section>
-        <section class="controls">
+        </div>
+        <form class="controls">
           <div class="container controls__container">
             <details class="controls__details">
               <summary class="controls__select">
@@ -91,6 +92,8 @@
                   class="controls__select-arrow"
                   src="./assets/images/icon-down-arrow.svg"
                   alt=""
+                  width="11"
+                  height="18"
                 />
               </summary>
               <ul class="controls__list list-reset">
@@ -149,6 +152,8 @@
                   class="controls__select-arrow"
                   src="./assets/images/icon-down-arrow.svg"
                   alt=""
+                  width="11"
+                  height="18"
                 />
               </summary>
               <ul class="controls__list controls__list--mode list-reset">
@@ -185,9 +190,9 @@
               </ul>
             </details>
           </div>
-        </section>
+        </form>
 
-        <section class="controls-bar">
+        <div class="controls-bar">
           <div class="container controls-bar__container">
             <div class="controls-bar__group controls-bar__group--difficulty">
               <span class="controls-bar__label">Difficulty:</span>
@@ -237,9 +242,10 @@
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <section id="test-js" class="test">
+        <h2 class="visually-hidden">Typing Speed Test Area</h2>
         <div class="container">
           <div class="test__display">
             <textarea
@@ -274,6 +280,8 @@
                 class="modal__img"
                 src="./assets/images/icon-completed.svg"
                 alt="Complete"
+                width="50"
+                height="50"
               />
             </div>
 
@@ -304,6 +312,8 @@
                 class="modal__img"
                 src="./assets/images/icon-completed.svg"
                 alt="Complete"
+                width="50"
+                height="50"
               />
             </div>
             <h2 class="title modal__title">Baseline Established!</h2>
