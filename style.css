@@ -114,7 +114,7 @@ body {
 .header__logo {
   display: block;
 
-  margin-inline-end: 10px;
+  margin-inline-end: .63rem;
 }
 
 .achievement {
@@ -145,14 +145,14 @@ body {
 }
 
 .achievement__value {
-  margin-top: 2px;
+  margin-top: .125rem;
   font-size: .93rem;
   text-transform: uppercase;
 }
 
 .achievement__text,
 .achievement__value {
-  display: flex; /* Не block и не inline-flex, а просто flex */
+  display: flex;
   align-items: center;
 }
 
@@ -217,14 +217,13 @@ body {
 }
 
 .stats-bar__value {
-  /* Новые свойства: */
   display: inline-block;
-  min-width: 3ch; /* Резервируем место под 3 символа (например, 100% или 150 WPM) */
+  min-width: 3ch;
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
 
-  font-variant-numeric: tabular-nums; /* Делаем цифры одной ширины */
+  font-variant-numeric: tabular-nums;
 }
 
 .stats-bar__value--accuracy {
@@ -252,11 +251,10 @@ body {
   flex: 1;
 }
 
-/* Переносим всю логику на label */
 .controls__label {
   display: flex;
   padding: 7px 10px;
-  color: var(--neutral-400); /* Цвет текста в неактивном состоянии */
+  color: var(--neutral-400);
   cursor: pointer;
   transition: background-color .3s ease-in-out;
 
@@ -267,7 +265,6 @@ body {
   background-color: rgba(255, 255, 255, .05);
 }
 
-/* Стилизуем сам кружок */
 .controls__label .controls__radio {
   display: grid;
   margin: 0;
@@ -282,14 +279,10 @@ body {
   place-content: center;
 }
 
-/* Состояния при выборе */
-
-/* 1. Цвет рамки и появление точки */
 .controls__label .controls__radio:checked {
   border: 6px solid var(--Blue-600);
 }
 
-/* 2. Цвет текста рядом с выбранной кнопкой */
 .controls__label:has(input:checked) {
   color: #ffffff;
 }
@@ -398,9 +391,9 @@ summary::-webkit-details-marker {
   flex-direction: column;
   justify-content: center;
 
-          backdrop-filter: blur(5px); /* Размывает всё, что ПОД модалкой */
-  -webkit-backdrop-filter: blur(5px); /* Для поддержки в Safari */
-  inset: 0; /* Растягивает блок на всю площадь родителя */
+          backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  inset: 0;
 }
 
 .modal-not-started__btn {
@@ -419,7 +412,6 @@ summary::-webkit-details-marker {
 }
 
 .modal-not-started__btn:focus-visible {
-  /* 1. Создаем синюю рамку */
   outline: 2px solid var(--Blue-400);
   outline-offset: 2px;
 }
@@ -522,30 +514,26 @@ summary::-webkit-details-marker {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 250px; /* Ограничиваем высоту, чтобы не перекрывать текст */
-  /* Применяем анимацию */
+  height: 250px;
   animation: confettiPopIn .6s ease-out forwards;
   pointer-events: none;
-  /* Растягиваем на всю ширину, лишнее сверху обрежется */
 
   object-fit: cover;
   object-position: bottom;
 }
 
-/* Кейфрейм для плавного появления */
 @keyframes confettiPopIn {
   0% {
     opacity: 0;
-    transform: translateY(20px); /* Начинаем чуть ниже */
+    transform: translateY(20px);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0); /* Встаем на место */
+    transform: translateY(0);
   }
 }
 
-/* Класс для скрытия (если используешь его в JS) */
 .modal__confetti--hidden {
   display: none;
 }
@@ -558,14 +546,13 @@ summary::-webkit-details-marker {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 42px; /* Центрируем и добавляем отступ снизу */
-  width: 50px;  /* Подбери размер под макет */
+  margin: 0 auto 42px;
+  width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #26a69a; /* Цвет фона круга (зеленый) */
-  /* Эффект ореола (несколько слоев тени без размытия, но с расширением) */
-  box-shadow: 0 0 0 10px rgba(38, 166, 154, .2),  /* Внутренний ореол */
-  0 0 0 20px rgba(38, 166, 154, .1);  /* Внешний ореол */
+  background-color: #26a69a;
+  box-shadow: 0 0 0 10px rgba(38, 166, 154, .2),
+  0 0 0 20px rgba(38, 166, 154, .1);
 }
 
 .modal__title {
@@ -806,8 +793,8 @@ summary::-webkit-details-marker {
   }
 
   .modal__svg::before {
-    top: 50%;    /* Настраиваете по макету */
-    left: -48%; /* Выносите чуть за границу, если нужно */
+    top: 50%;
+    left: -48%;
     width: 32px;
     height: 32px;
   }
