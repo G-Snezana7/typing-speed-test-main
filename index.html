@@ -43,7 +43,7 @@
           />
           <span class="achievement__text">Best: </span>
           <span class="achievement__text-desc">Personal best: </span>
-          <span id="record-js" class="achievement__value">0 WPM</span>
+          <span id="record-js" class="achievement__value">92 WPM</span>
         </div>
       </div>
     </header>
@@ -54,7 +54,7 @@
           <div class="container stats-bar__container">
             <ul class="stats-bar__list list-reset">
               <li class="stats-bar__item">
-                <div class="stats-bar__item-wrapper">
+                <div class="stats-bar__content">
                   <span class="stats-bar__label stats-bar__label--uppercase"
                     >WPM:</span
                   >
@@ -62,7 +62,7 @@
                 </div>
               </li>
               <li class="stats-bar__item stats-bar__item--border">
-                <div class="stats-bar__item-wrapper">
+                <div class="stats-bar__content">
                   <span class="stats-bar__label">Accuracy:</span>
                   <output class="stats-bar__value stats-bar__value--accuracy"
                     >0</output
@@ -70,7 +70,7 @@
                 </div>
               </li>
               <li class="stats-bar__item">
-                <div class="stats-bar__item-wrapper">
+                <div class="stats-bar__content">
                   <span class="stats-bar__label">Time:</span>
                   <output
                     id="start-timer-js"
@@ -254,6 +254,7 @@
               aria-label="Type here"
               autocomplete="off"
               autofocus
+              disabled
             ></textarea>
             <div id="words-wrapper" class="test__words"></div>
           </div>
@@ -279,7 +280,7 @@
               <img
                 class="modal__img"
                 src="./assets/images/icon-completed.svg"
-                alt="Complete"
+                alt=""
                 width="50"
                 height="50"
               />
@@ -293,13 +294,14 @@
 
           <div id="new-result-js" class="modal__header modal__header-new">
             <img
-              class="modal__img"
+              class="modal__img-new"
               src="./assets/images/icon-new-pb.svg"
-              alt="Complete"
+              width="66"
+              alt=""
             />
             <h2 class="title modal__title">High Score Smashed!</h2>
             <p class="modal__message">
-              You'are getting faster. That was incredible typing
+              You're getting faster. That was incredible typing
             </p>
           </div>
 
@@ -311,7 +313,7 @@
               <img
                 class="modal__img"
                 src="./assets/images/icon-completed.svg"
-                alt="Complete"
+                alt=""
                 width="50"
                 height="50"
               />
