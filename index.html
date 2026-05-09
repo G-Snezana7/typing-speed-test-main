@@ -16,6 +16,7 @@
     <script defer src="./main1.js"></script>
   </head>
   <body>
+    <h1 class="visually-hidden">Typing Speed Test</h1>
     <header class="header">
       <div class="container header__container">
         <a href="/" class="header__logo">
@@ -42,18 +43,18 @@
           />
           <span class="achievement__text">Best: </span>
           <span class="achievement__text-desc">Personal best: </span>
-          <span id="record-js" class="achievement__value">0 WPM</span>
+          <span id="record-js" class="achievement__value">92 WPM</span>
         </div>
       </div>
     </header>
 
     <main class="main">
       <div id="stats-js" class="sections-wrapper">
-        <section class="stats-bar">
+        <div class="stats-bar">
           <div class="container stats-bar__container">
             <ul class="stats-bar__list list-reset">
               <li class="stats-bar__item">
-                <div class="stats-bar__item-wrapper">
+                <div class="stats-bar__content">
                   <span class="stats-bar__label stats-bar__label--uppercase"
                     >WPM:</span
                   >
@@ -61,7 +62,7 @@
                 </div>
               </li>
               <li class="stats-bar__item stats-bar__item--border">
-                <div class="stats-bar__item-wrapper">
+                <div class="stats-bar__content">
                   <span class="stats-bar__label">Accuracy:</span>
                   <output class="stats-bar__value stats-bar__value--accuracy"
                     >0</output
@@ -69,7 +70,7 @@
                 </div>
               </li>
               <li class="stats-bar__item">
-                <div class="stats-bar__item-wrapper">
+                <div class="stats-bar__content">
                   <span class="stats-bar__label">Time:</span>
                   <output
                     id="start-timer-js"
@@ -80,8 +81,8 @@
               </li>
             </ul>
           </div>
-        </section>
-        <section class="controls">
+        </div>
+        <form class="controls">
           <div class="container controls__container">
             <details class="controls__details">
               <summary class="controls__select">
@@ -91,6 +92,8 @@
                   class="controls__select-arrow"
                   src="./assets/images/icon-down-arrow.svg"
                   alt=""
+                  width="11"
+                  height="18"
                 />
               </summary>
               <ul class="controls__list list-reset">
@@ -149,6 +152,8 @@
                   class="controls__select-arrow"
                   src="./assets/images/icon-down-arrow.svg"
                   alt=""
+                  width="11"
+                  height="18"
                 />
               </summary>
               <ul class="controls__list controls__list--mode list-reset">
@@ -185,9 +190,9 @@
               </ul>
             </details>
           </div>
-        </section>
+        </form>
 
-        <section class="controls-bar">
+        <div class="controls-bar">
           <div class="container controls-bar__container">
             <div class="controls-bar__group controls-bar__group--difficulty">
               <span class="controls-bar__label">Difficulty:</span>
@@ -237,9 +242,10 @@
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <section id="test-js" class="test">
+        <h2 class="visually-hidden">Typing Speed Test Area</h2>
         <div class="container">
           <div class="test__display">
             <textarea
@@ -248,6 +254,7 @@
               aria-label="Type here"
               autocomplete="off"
               autofocus
+              disabled
             ></textarea>
             <div id="words-wrapper" class="test__words"></div>
           </div>
@@ -273,7 +280,9 @@
               <img
                 class="modal__img"
                 src="./assets/images/icon-completed.svg"
-                alt="Complete"
+                alt=""
+                width="50"
+                height="50"
               />
             </div>
 
@@ -285,13 +294,14 @@
 
           <div id="new-result-js" class="modal__header modal__header-new">
             <img
-              class="modal__img"
+              class="modal__img-new"
               src="./assets/images/icon-new-pb.svg"
-              alt="Complete"
+              width="66"
+              alt=""
             />
             <h2 class="title modal__title">High Score Smashed!</h2>
             <p class="modal__message">
-              You'are getting faster. That was incredible typing
+              You're getting faster. That was incredible typing
             </p>
           </div>
 
@@ -303,7 +313,9 @@
               <img
                 class="modal__img"
                 src="./assets/images/icon-completed.svg"
-                alt="Complete"
+                alt=""
+                width="50"
+                height="50"
               />
             </div>
             <h2 class="title modal__title">Baseline Established!</h2>

@@ -3,12 +3,15 @@
 .visually-hidden {
   position: absolute;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0 0 0 0);
   margin: -1px;
   padding: 0;
   width: 1px;
   height: 1px;
+  white-space: nowrap;
   border: 0;
+
+  clip-path: inset(100%);
 }
 
 :root {
@@ -93,7 +96,7 @@ body {
   margin: 0 auto;
   max-width: 90rem;
 
-  padding-inline: 16px;
+  padding-inline: 1.13rem;
 }
 
 /* header*/
@@ -111,38 +114,46 @@ body {
 .header__logo {
   display: block;
 
-  margin-inline-end: 10px;
+  margin-inline-end: .63rem;
 }
 
 .achievement {
   display: flex;
-  align-items: center;
   flex-shrink: 0;
+  line-height: 1;
   white-space: nowrap;
 }
 
 .achievement__img {
-  margin-right: 10px;
+  display: block;
+  margin-right: .62rem;
 }
 
 .achievement__text {
-  display: block;
-  margin-right: 2px;
-  font-size: 15px;
+  font-size: .94rem;
   color: var(--neutral-400);
+
+  margin-inline-end: .19rem;
 }
 
 .achievement__text-desc {
   display: none;
-  font-size: 17px;
+  font-size: 1.06rem;
   color: var(--neutral-400);
 
-  margin-inline-end: 2px;
+  margin-inline-end: .12rem;
 }
 
 .achievement__value {
-  font-size: 1.13rem;
+  margin-top: .125rem;
+  font-size: .93rem;
   text-transform: uppercase;
+}
+
+.achievement__text,
+.achievement__value {
+  display: flex;
+  align-items: center;
 }
 
 .main {
@@ -155,34 +166,46 @@ body {
   display: flex;
   flex-direction: column;
 
-  padding-block-end: 1.25rem;
+  padding-block-end: 1rem;
 }
 
 .stats-bar {
-  padding-block: 1rem;
+  padding-block-start: 1.13rem;
+  padding-block-end: .93rem;
 }
 
 .stats-bar__list {
   position: relative;
   display: grid;
 
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.stats-bar__item-wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .stats-bar__item {
-  padding-inline-start: 1rem;
-  padding-inline-end: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  padding-inline-start: .94rem;
+  padding-inline-end: .94rem;
 }
 
 .stats-bar__item:not(:last-child) {
   border-right: 1px solid var(--neutral-800);
+}
+
+.stats-bar__item:first-child {
+  align-items: flex-start;
+}
+
+.stats-bar__item:last-child {
+  align-items: flex-end;
+}
+
+.stats-bar__content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .stats-bar__label {
@@ -194,8 +217,13 @@ body {
 }
 
 .stats-bar__value {
+  display: inline-block;
+  min-width: 3ch;
   font-size: 1.5rem;
   font-weight: 600;
+  text-align: center;
+
+  font-variant-numeric: tabular-nums;
 }
 
 .stats-bar__value--accuracy {
@@ -212,12 +240,21 @@ body {
   display: block;
 }
 
-/* Переносим всю логику на label */
+.controls__container {
+  display: flex;
+
+  gap: .62rem;
+}
+
+.controls__details {
+  position: relative;
+  flex: 1;
+}
+
 .controls__label {
   display: flex;
-  align-items: center;
   padding: 7px 10px;
-  color: var(--neutral-400); /* Цвет текста в неактивном состоянии */
+  color: var(--neutral-400);
   cursor: pointer;
   transition: background-color .3s ease-in-out;
 
@@ -228,7 +265,6 @@ body {
   background-color: rgba(255, 255, 255, .05);
 }
 
-/* Стилизуем сам кружок */
 .controls__label .controls__radio {
   display: grid;
   margin: 0;
@@ -243,27 +279,12 @@ body {
   place-content: center;
 }
 
-/* Состояния при выборе */
-
-/* 1. Цвет рамки и появление точки */
 .controls__label .controls__radio:checked {
   border: 6px solid var(--Blue-600);
 }
 
-/* 2. Цвет текста рядом с выбранной кнопкой */
 .controls__label:has(input:checked) {
   color: #ffffff;
-}
-
-.controls__container {
-  display: flex;
-
-  gap: 10px;
-}
-
-.controls__details {
-  position: relative;
-  flex: 1;
 }
 
 summary {
@@ -297,15 +318,16 @@ summary::-webkit-details-marker {
   justify-content: center;
   text-align: center;
   border: 1px solid var(--neutral-400);
-  border-radius: 5px;
+  border-radius: 8px;
 
-  padding-block: 5px;
+  padding-block: 6px;
   padding-inline: 10px;
 }
 
 .controls__select-text {
   display: block;
   margin-right: .56rem;
+  font-size: .94rem;
 }
 
 .controls__select-arrow {
@@ -318,6 +340,11 @@ summary::-webkit-details-marker {
 
 .controls-bar {
   display: none;
+}
+
+.controls-bar__group {
+  display: flex;
+  align-items: center;
 }
 
 .test {
@@ -364,9 +391,9 @@ summary::-webkit-details-marker {
   flex-direction: column;
   justify-content: center;
 
-          backdrop-filter: blur(5px); /* Размывает всё, что ПОД модалкой */
-  -webkit-backdrop-filter: blur(5px); /* Для поддержки в Safari */
-  inset: 0; /* Растягивает блок на всю площадь родителя */
+          backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  inset: 0;
 }
 
 .modal-not-started__btn {
@@ -385,7 +412,6 @@ summary::-webkit-details-marker {
 }
 
 .modal-not-started__btn:focus-visible {
-  /* 1. Создаем синюю рамку */
   outline: 2px solid var(--Blue-400);
   outline-offset: 2px;
 }
@@ -444,29 +470,37 @@ summary::-webkit-details-marker {
 
 .modal__header-new {
   display: none;
+
+  padding-block-start: 1.88rem;
+}
+
+.modal__img-new {
+  margin-block-end: 2.12rem;
 }
 
 .modal__header-baseline {
   display: none;
+
+  padding-block-start: 1.9rem;
 }
 
 .modal__svg::before {
   content: "";
   position: absolute;
-  top: 14%;    /* Настраиваете по макету */
-  left: 0; /* Выносите чуть за границу, если нужно */
-  width: 24px;
-  height: 24px;
+  top: 27%;
+  left: 0;
+  width: 22px;
+  height: 22px;
   background: url("./assets/images/pattern-star-2.svg") no-repeat center / contain;
 }
 
 .modal__svg::after {
   content: "";
   position: absolute;
-  right: 5%;
-  bottom: -250%; /* Выталкиваем иконку НИЖЕ блока, чтобы она была под кнопкой */
-  width: 24px;
-  height: 24px;
+  right: 4%;
+  bottom: -217%;
+  width: 34px;
+  height: 34px;
   background: url("./assets/images/pattern-star-1.svg") no-repeat center / contain;
 }
 
@@ -475,25 +509,33 @@ summary::-webkit-details-marker {
 }
 
 .modal__confetti {
-  z-index: 1;
+  position: absolute;
+  z-index: 0;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: auto;
-  animation: popIn .5s ease-out;
-  pointer-events: none; /* чтобы нельзя было случайно кликнуть по картинке вместо кнопок */
+  height: 250px;
+  animation: confettiPopIn .6s ease-out forwards;
+  pointer-events: none;
+
+  object-fit: cover;
+  object-position: bottom;
 }
 
-@keyframes popIn {
+@keyframes confettiPopIn {
   0% {
     opacity: 0;
-    transform: translateY(5%) scale(.2);
+    transform: translateY(20px);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(-5%) scale(1);
+    transform: translateY(0);
   }
+}
+
+.modal__confetti--hidden {
+  display: none;
 }
 
 .modal__confetti--hidden {
@@ -504,18 +546,17 @@ summary::-webkit-details-marker {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 42px; /* Центрируем и добавляем отступ снизу */
-  width: 50px;  /* Подбери размер под макет */
+  margin: 0 auto 42px;
+  width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #26a69a; /* Цвет фона круга (зеленый) */
-  /* Эффект ореола (несколько слоев тени без размытия, но с расширением) */
-  box-shadow: 0 0 0 10px rgba(38, 166, 154, .2),  /* Внутренний ореол */
-  0 0 0 20px rgba(38, 166, 154, .1);  /* Внешний ореол */
+  background-color: #26a69a;
+  box-shadow: 0 0 0 10px rgba(38, 166, 154, .2),
+  0 0 0 20px rgba(38, 166, 154, .1);
 }
 
 .modal__title {
-  margin-bottom: 10px;
+  margin-bottom: .62rem;
   font-size: 1.5rem;
 }
 
@@ -523,7 +564,7 @@ summary::-webkit-details-marker {
   margin: 0;
   margin-bottom: 1.5rem;
   font-size: .93rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   color: var(--neutral-400);
   text-align: center;
@@ -534,19 +575,20 @@ summary::-webkit-details-marker {
   flex-direction: column;
   width: 100%;
 
-  margin-block-end: 2.5rem;
-  gap: 1rem;
+  margin-block-end: 2.62rem;
+  gap: 1.13rem;
 }
 
 .modal__stat-item {
   display: flex;
   align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   border: 1px solid var(--neutral-800);
   border-radius: 8px;
 
   padding-inline-start: 1.44rem;
-  padding-block-start: 1.19rem;
+  padding-block-start: 1.06rem;
   padding-block-end: .81rem;
 }
 
@@ -590,7 +632,7 @@ summary::-webkit-details-marker {
   transition: opacity .3s ease;
   pointer-events: none;
 
-  padding-block-start: 1.87rem;
+  padding-block-end: 150px;
 }
 
 .toolbar--visible {
@@ -601,12 +643,12 @@ summary::-webkit-details-marker {
 .toolbar__btn {
   display: flex;
   align-items: center;
-  padding: 17px;
+  padding: 1.13rem 1.06rem 1rem 1.06rem;
   font-size: 19px;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: 12px;
 
-  gap: 12px;
+  gap: .75rem;
 }
 
 .toolbar__btn[data-state="test"] {
@@ -640,7 +682,7 @@ summary::-webkit-details-marker {
 
 @media (min-width: 768px) {
   .header__logo-img {
-    width: 267px;
+    width: 16.7rem;
   }
 
   .achievement__text {
@@ -657,10 +699,6 @@ summary::-webkit-details-marker {
 
   .modal__container {
     max-width: 53%;
-  }
-
-  .modal__stat-item {
-    align-items: flex-start;
   }
 }
 
@@ -682,13 +720,12 @@ summary::-webkit-details-marker {
   }
 
   .stats-bar {
-    max-width: 50%;
-
     padding-block: 0;
   }
 
   .stats-bar__item-wrapper {
     flex-direction: row;
+    justify-content: center;
   }
 
   .stats-bar__label {
@@ -706,7 +743,7 @@ summary::-webkit-details-marker {
   .controls-bar {
     display: flex;
 
-    gap: 36px;
+    gap: 2.25rem;
   }
 
   .controls-bar__container {
@@ -714,13 +751,8 @@ summary::-webkit-details-marker {
     align-items: center;
   }
 
-  .controls-bar__group {
-    display: flex;
-    align-items: center;
-  }
-
   .controls-bar__group:not(:last-child) {
-    margin-inline-end: 20px;
+    margin-inline-end: .62rem;
   }
 
   .controls-bar__label {
@@ -761,8 +793,8 @@ summary::-webkit-details-marker {
   }
 
   .modal__svg::before {
-    top: 50%;    /* Настраиваете по макету */
-    left: -48%; /* Выносите чуть за границу, если нужно */
+    top: 50%;
+    left: -48%;
     width: 32px;
     height: 32px;
   }
