@@ -693,6 +693,10 @@ summary::-webkit-details-marker {
     display: block;
   }
 
+  .achievement__value {
+    margin-top: 0;
+  }
+
   .modal {
     margin-block-end: 1.62rem;
   }

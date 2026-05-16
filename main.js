@@ -192,32 +192,20 @@ function updateStatsUI() {
   accuracyUI.textContent = `${globalAccuracy}%`;
 }
 
-// function finishTest() {
-//     stopTimer();
-//     if (correctChars < 2) {
-//         modalResalt.style.display = "none";
-//         btnRestart.click(); 
-//         return;
-//     }
-//     document.querySelector('.test__display').classList.remove('test__display--active');
-//     handleResults();
-// }
+
 
 function finishTest() {
   stopTimer();
 
   const typedLength = inputField.value.trim().length;
 
-  // ПРОВЕРКА: Аннулируем, только если времени не осталось, а текста почти нет
-  // Если же пользователь ДОПЕЧАТАЛ до конца (даже с ошибками), мы пройдем мимо этого IF
+
   if (timeLeft === 0 && typedLength < 2) {
     modalResalt.style.display = "none";
     btnRestart.click();
     return;
   }
 
-  // Если мы здесь — значит пользователь либо допечатал до конца, 
-  // либо напечатал достаточно много по таймеру. Показываем результат!
   document.querySelector('.test__display').classList.remove('test__display--active');
   handleResults();
 }
@@ -235,33 +223,6 @@ function toggleGameScreens(showResults) {
   }
 }
 
-function handleResults() {
-    const savedRecord = parseInt(localStorage.getItem("bestSpeed") || 0);
-    const isFirstTime = !localStorage.getItem("bestSpeed");
-    const isNewRecord = currentWpm > savedRecord;
-
-    toggleGameScreens(true);
-    confettiImg.classList.add("modal__confetti--hidden");
-
-    if (isFirstTime) {
-        openModal(document.getElementById("baseline-js"));
-        setButtonState("baseline");
-    } else if (isNewRecord) {
-        openModal(document.getElementById("new-result-js"));
-        setButtonState("complete");
-        confettiImg.classList.remove("modal__confetti--hidden");
-    } else {
-        openModal(document.getElementById("completed-js"));
-        setButtonState("complete");
-    }
-
-    if (currentWpm > savedRecord) {
-        localStorage.setItem("bestSpeed", currentWpm);
-        if (recordDisplay) {
-            recordDisplay.textContent = `${currentWpm} wpm`;
-        }
-    }
-}
 
 function handleResults() {
     const savedRecord = parseInt(localStorage.getItem("bestSpeed") || 0);
@@ -426,5 +387,5 @@ btnRestart.addEventListener("click", async () => {
 
 textField.addEventListener("click", () => inputField.focus());
 
-recordDisplay.textContent = `${localStorage.getItem("bestSpeed") || 92} wpm`;
+recordDisplay.textContent = `${localStorage.getItem("bestSpeed") || 0} wpm`;
 loadNewPassage(currentDifficulty);
