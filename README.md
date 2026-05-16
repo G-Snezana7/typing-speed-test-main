@@ -36,8 +36,10 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [https://github.com/gsnezana7/typing-speed-test-main/tree/main]
-- Live Site URL: [Add your live site URL here (e.g., GitHub Pages, Vercel, Netlify)]
+### Links
+
+- Solution URL: [GitHub Repository](https://github.com/gsnezana7/typing-speed-test-main)
+- Live Site URL: [GitHub Pages Demo](https://gsnezana7.github.io/typing-speed-test-main/)
 
 ## My process
 
@@ -100,4 +102,6 @@ In future updates, I plan to:
 
 ## Author
 
-- Frontend Mentor - [@your-username](https://frontendmentor.io)
+- Frontend Mentor - ## Author
+
+- Frontend Mentor - [@gsnezana7](https://www.frontendmentor.io/profile/gsnezana7)
