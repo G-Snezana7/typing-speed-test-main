@@ -1,3 +1,12 @@
+// --- 0. CONFIG ---
+const CONFIG = {
+  DEFAULT_TIME_LIMIT: 60,       // Время для режима Timed (в секундах)
+  DEFAULT_DIFFICULTY: "easy",    // Начальная сложность
+  DEFAULT_MODE: "timed",         // Начальный режим
+  MIN_LENGTH_TO_SAVE: 2,         // Минимальная длина ввода для зачета теста
+  CHARS_PER_WORD: 5,             // Стандарт количества символов в одном слове для расчета WPM
+  FALLBACK_TEXT: "The sun rose over the quiet town." // Запасной текст на случай ошибки fetch
+};
 // --- 1. ДОМ ЭЛЕМЕНТЫ ---
 const modalNotStarted = document.getElementById('not-started-js')
 const btnRestart = document.getElementById("restart-js");
@@ -16,24 +25,26 @@ const confettiImg = document.querySelector(".modal__confetti");
 const blockStats = document.getElementById("stats-js");
 const test = document.getElementById("test-js");
 
+
 // Статистика в верхнем баре (WPM и Accuracy)
 const statsValues = document.querySelectorAll(".stats-bar__value");
 const wpmUI = statsValues[0];
 const accuracyUI = statsValues[1];
 
 // --- 2. СОСТОЯНИЕ ПРИЛОЖЕНИЯ (STATE) ---
+let lastInputLength = 0;
 let currentWpm = 0;
 let correctChars = 0;
 let errorCount = 0;
 let charSpans = [];
 let globalAccuracy = 0;
-let timeLeft = 60;
+let timeLeft = CONFIG.DEFAULT_TIME_LIMIT;
 let seconds = 0;
 let timerId = null;
 let timerStarted = false;
 let stopwatch = false; // true для режима Passage
-let currentDifficulty = "easy";
-let currentMode = "timed";
+let currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;
+let currentMode = CONFIG.DEFAULT_MODE;
 let currentText = "";
 const fragment = document.createDocumentFragment();
 
@@ -82,9 +93,9 @@ function updateInterface(setting, value) {
 }
 
 function updateTimerUI(time) {
-  const mins = Math.floor(time / 60);
-  const secs = time % 60;
-  timerDisplay.textContent = `${mins}:${String(secs).padStart(2, "0")}`;
+  const mins = Math.floor(time / CONFIG.DEFAULT_TIME_LIMIT);
+  const secs = time % CONFIG.DEFAULT_TIME_LIMIT;
+  timerDisplay.textContent = `${mins}:${String(secs).padStart(CONFIG.MIN_LENGTH_TO_SAVE, "0")}`;
 }
 
 function startTimer() {
@@ -114,14 +125,14 @@ function stopTimer() {
   timerStarted = false;
 }
 
-async function loadNewPassage(difficulty = "easy") {
+async function loadNewPassage(difficulty = CONFIG.DEFAULT_DIFFICULTY) {
   try {
     const response = await fetch("./data.json");
     const data = await response.json();
     const passages = data[difficulty];
     currentText = passages[Math.floor(Math.random() * passages.length)].text;
   } catch (e) {
-    currentText = "The sun rose over the quiet town.";
+    currentText = CONFIG.FALLBACK_TEXT;
   } finally {
     resetTest();
     inputField.disabled = false; 
@@ -171,7 +182,7 @@ function updateCharStatus(index, userChar, isBackspace) {
 }
 
 function calculateStats(inputLength) {
-    const timePassed = stopwatch ? seconds : 60 - timeLeft;
+    const timePassed = stopwatch ? seconds : CONFIG.DEFAULT_TIME_LIMIT - timeLeft;
 
     if (inputLength > 0) {
         const score = Math.round(((inputLength - errorCount) / inputLength) * 100);
@@ -181,7 +192,7 @@ function calculateStats(inputLength) {
     }
 
     if (timePassed > 0) {
-        currentWpm = Math.round((correctChars / 5) / (timePassed / 60));
+        currentWpm = Math.round((correctChars / CONFIG.CHARS_PER_WORD) / (timePassed / CONFIG.DEFAULT_TIME_LIMIT));
     } else {
         currentWpm = 0;
     }
@@ -200,7 +211,7 @@ function finishTest() {
   const typedLength = inputField.value.trim().length;
 
 
-  if (timeLeft === 0 && typedLength < 2) {
+  if (timeLeft === 0 && typedLength < CONFIG.MIN_LENGTH_TO_SAVE) {
     modalResalt.style.display = "none";
     btnRestart.click();
     return;
@@ -286,13 +297,13 @@ function resetTest() {
     currentWpm = 0;
     globalAccuracy = 0;
     timerStarted = false;
-    timeLeft = 60;
+    timeLeft = CONFIG.DEFAULT_TIME_LIMIT;
     seconds = 0;
     
         inputField.disabled = true; 
     inputField.value = "";
     
-    updateTimerUI(stopwatch ? 0 : 60);
+    updateTimerUI(stopwatch ? 0 : CONFIG.DEFAULT_TIME_LIMIT);
     updateStatsUI();
     
     charSpans.forEach(span => {
@@ -377,10 +388,10 @@ btnRestart.addEventListener("click", async () => {
     modalResalt.style.display = "none";
     setButtonState("test");
 
-    currentDifficulty = "easy";
+    currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;
     stopwatch = false;
-    updateInterface("difficulty", "easy");
-    updateInterface("mode", "timed");
+    updateInterface("difficulty", CONFIG.DEFAULT_DIFFICULTY);
+    updateInterface("mode", CONFIG.DEFAULT_MODE);
     await loadNewPassage(currentDifficulty); 
     inputField.focus(); 
 });
