@@ -36,7 +36,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add your Frontend Mentor solution URL here]
+- Solution URL: [https://github.com/gsnezana7/typing-speed-test-main/tree/main]
 - Live Site URL: [Add your live site URL here (e.g., GitHub Pages, Vercel, Netlify)]
 
 ## My process
