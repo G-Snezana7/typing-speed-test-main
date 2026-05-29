@@ -130,7 +130,7 @@ async function loadNewPassage(difficulty = CONFIG.DEFAULT_DIFFICULTY) {
     const data = await response.json();
     const passages = data[difficulty];
     currentText = passages[Math.floor(Math.random() * passages.length)].text;
-  } catch (e) {
+  } catch  {
     currentText = CONFIG.FALLBACK_TEXT;
   } finally {
     resetTest();
