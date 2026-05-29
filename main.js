@@ -45,7 +45,7 @@ let timerStarted = false;
 let stopwatch = false; // true для режима Passage
 let currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;
 let currentText = "";
-const fragment = document.createDocumentFragment();
+// const fragment = document.createDocumentFragment();
 
 function startTest() {
   modalNotStarted.style.display = "none";
