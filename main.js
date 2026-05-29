@@ -44,7 +44,6 @@ let timerId = null;
 let timerStarted = false;
 let stopwatch = false; // true для режима Passage
 let currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;
-let currentMode = CONFIG.DEFAULT_MODE;
 let currentText = "";
 const fragment = document.createDocumentFragment();
 
