@@ -17,7 +17,6 @@
   </head>
   <body>
     <header class="header">
-      <h1 class="visually-hidden">Typing Speed Test</h1>
       <div class="container header__container">
         <a href="/" class="header__logo">
           <picture>
@@ -40,6 +39,7 @@
             src="assets/images/icon-personal-best.svg"
             alt=""
             width="19"
+            aria-hidden="true"
           />
           <span class="achievement__text">Best: </span>
           <span class="achievement__text-desc">Personal best: </span>
@@ -49,6 +49,7 @@
     </header>
 
     <main class="main">
+      <h1 class="visually-hidden">Typing Speed Test</h1>
       <div id="stats-js" class="sections-wrapper">
         <div class="stats-bar">
           <div class="container stats-bar__container">
@@ -94,6 +95,7 @@
                   alt=""
                   width="11"
                   height="18"
+                  aria-hidden="true"
                 />
               </summary>
               <ul class="controls__list list-reset">
@@ -154,6 +156,7 @@
                   alt=""
                   width="11"
                   height="18"
+                  aria-hidden="true"
                 />
               </summary>
               <ul class="controls__list controls__list--mode list-reset">
@@ -341,7 +344,7 @@
             <div class="modal__stat-item">
               <span class="modal__stat-title">Accuracy:</span>
               <strong
-                class="modal__stat-value modal__stat-value--accuraty"
+                class="modal__stat-value modal__stat-value--accuracy"
                 id="accuracy-js"
                 >0%</strong
               >

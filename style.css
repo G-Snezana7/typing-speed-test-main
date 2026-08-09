@@ -591,7 +591,7 @@ summary::-webkit-details-marker {
   font-size: 1.5rem;
 }
 
-.modal__stat-value--accuraty {
+.modal__stat-value--accuracy {
   color: var(--Red-500);
 }
 

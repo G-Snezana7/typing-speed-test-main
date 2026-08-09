@@ -277,7 +277,9 @@ function handleResults() {
 
 
 function openModal(modalContent) {
-  modalResalt.style.display = "block";
+  // Показываем модалку, просто удаляя класс скрытия
+  modalResalt.classList.remove("modal--hidden");
+  
   modalArray.forEach((el) => (el.style.display = "none"));
   modalContent.style.display = "flex";
 
@@ -286,6 +288,7 @@ function openModal(modalContent) {
   finalCorrect.textContent = correctChars;
   finalError.textContent = errorCount;
 }
+
 
 
 function resetTest() {
@@ -384,7 +387,8 @@ inputField.addEventListener("input", () => {
 btnRestart.addEventListener("click", async () => { 
     resetTest(); 
     toggleGameScreens(false);
-    modalResalt.style.display = "none";
+   modalResalt.classList.add("modal--hidden");
+
     setButtonState("test");
 
     currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;
