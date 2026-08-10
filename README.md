@@ -1,103 +1,23 @@
-# Frontend Mentor - Typing Speed Test solution
+# Веб-тренажер скорости печати (Typing Speed Test)
 
-This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https://frontendmentor.io). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+Сложное интерактивное веб-приложение для тестирования и тренировки скорости набора текста, разработанное на чистом JavaScript (Vanilla JS) с динамическим расчетом бизнес-метрик (WPM, CPM, точность) и продвинутой игровой логикой.
 
-## Table of contents
+## 🚀 Демонстрация проекта
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
+- **Живой сайт (Netlify/GitHub Pages):** https://g-snezana7.github.io/typing-speed-test-main/
 
-- [Author](#author)
+## 🛠️ Стек технологий и архитектура
 
-## Overview
+- **Логика и алгоритмы:** Vanilla JavaScript (ES6+) — разработка комплексного игрового цикла, управление интервальными таймерами (`setInterval`), асинхронное переключение режимов.
+- **Оптимизация DOM:** Использование `DocumentFragment` для посимвольной разбивки текста (разметка сотен элементов `<span>` за один проход без просадки FPS).
+- **Архитектура данных:** REST API на базе локального `data.json` с разделением текстов по уровням сложности (Easy, Medium, Hard).
+- **Верстка:** Семантический HTML5 (активное использование тегов `<output>`, `<picture>`, `<details>`). Адаптивные стили выполнены на CSS Grid (`grid-template-areas`), кастомных свойствах и резиновых функциях `clamp()`. Код оформлен по методологии БЭМ.
 
-### The challenge
+## 💡 Реализованный инженерный функционал
 
-Users should be able to:
-
-- Start a test by clicking the start button or by clicking the passage area.
-- Select a difficulty level (Easy, Medium, Hard) via custom dropdowns (mobile) or inline controls (desktop).
-- Switch between **Timed (60s)** mode (countdown) and **Passage** mode (stopwatch counts up, no limit).
-- Restart at any time to fetch a new random passage using a state-adaptive toolbar button.
-- See real-time WPM, accuracy, and time stats while typing.
-- Receive visual feedback for character states: correct (green), errors (red/underlined), and current character highlight.
-- Correct mistakes with backspace (original errors still count against accuracy tracking).
-- View tailored end-game modals: "Baseline Established!" (first run), "High Score Smashed!" with confetti (new personal best), or standard "Test Complete!".
-- Have their personal best persist across browser sessions via `localStorage`.
-
-### Screenshot
-
-![](./screenshot.jpg)
-
-### Links
-
-- Solution URL: [Add your Frontend Mentor solution URL here]
-- Live Site URL: [Add your live site URL here (e.g., GitHub Pages, Vercel, Netlify)]
-
-## My process
-
-### Built with
-
-- Semantic HTML5 markup (including `<output>` for dynamic stats)
-- CSS Custom Properties (Variables)
-- Responsive layout fluidly converted from pixels to `rem` units for better accessibility
-- Flexbox and CSS Grid
-- Mobile-first approach with native screen transitions at `768px` and `1200px`
-- Modern CSS selectors (`:has()`, `:focus-visible`)
-- Vanilla JavaScript (ES6+, Async/Await API fetching)
-
-### What I learned
-
-This project helped me understand the importance of maintainable architecture and strict data handling in vanilla applications.
-
-1. **Eliminating Magic Numbers with Configuration Objects:**
-   To prevent structural clutter and improve scalability, I refactored the application settings into a unified global dictionary configuration. This prevents hardcoded dependencies across timers, calculations, and resetting functions:
-
-```js
-const CONFIG = {
-  DEFAULT_TIME_LIMIT: 60,
-  DEFAULT_DIFFICULTY: "easy",
-  DEFAULT_MODE: "timed",
-  MIN_LENGTH_TO_SAVE: 2,
-  CHARS_PER_WORD: 5,
-  FALLBACK_TEXT: "The sun rose over the quiet town.",
-};
-
-// State binding example:
-let timeLeft = CONFIG.DEFAULT_TIME_LIMIT;
-```
-
-2. **Accurate Character-Validation State:**
-   To keep accuracy calculations accurate, I added unique `dataset` markers on individual text tokens. This blocks repetitive key down-strokes from penalizing user errors multiple times at the exact same caret coordinate:
-
-```js
-if (userChar === span.textContent) {
-  span.classList.add("char--correct");
-  correctChars++;
-} else {
-  span.classList.add("char--error");
-  if (!span.dataset.wasWrong) {
-    span.dataset.wasWrong = "true";
-    errorCount++;
-  }
-}
-```
-
-3. **Performance Optimization:**
-   When rendering strings into arrays of spans, I utilized `DocumentFragment` to batch DOM injections, keeping the page performant and free of layout thrashing.
-
-### Continued development
-
-In future updates, I plan to:
-
-- Refactor the code architecture using ES Modules to isolate the timer, stats calculator, and DOM rendering logics.
-- Improve full keyboard navigation access for custom controls to meet standard WCAG guidelines.
-
-## Author
-
-- Frontend Mentor - [@your-username](https://frontendmentor.io)
+1. **Скрытый перехват ввода (Профессиональный паттерн):** Ввод текста перехватывается через невидимый фокусный `<textarea>`, что обеспечивает идеальную стабильность набора как на физических клавиатурах ПК, так и на виртуальных клавиатурах смартфонов.
+2. **Алгоритм точного учета ошибок:** Каждая буква снабжается кастомным состоянием `dataset.wasWrong`. Благодаря этому повторные ошибки на одном и том же символе после нажатия Backspace не накручивают счетчик ошибок ложно, гарантируя честный расчет точности.
+3. **Продвинутый расчет метрик:** Интегрирована формула международного стандарта WPM (слов в минуту), привязанная к коэффициенту `CHARS_PER_WORD = 5` и чистому прошедшему времени.
+4. **Продуктовая логика рекордов:** Система считывает данные из `LocalStorage`. В зависимости от исхода теста приложение динамически переключает три экрана результатов: стартовый базовый (Baseline), обычный финиш или экран триумфа (High Score Smashed) с запуском эффекта конфетти.
+5. **Адаптивный JS-интерфейс:** Логика изменения текстовых состояний на кнопках (`setButtonState`) динамически отслеживает ширину экрана пользователя и подставляет укороченные мобильные или развернутые десктопные фразы.
+6. **Доступность (a11y):** Реализована поддержка режима уменьшения движения системы (`prefers-reduced-motion`), декоративные SVG скрыты от скринридеров, а все интерактивные элементы доступны для полноценного прохождения теста с клавиатуры (по клавише `Tab`).

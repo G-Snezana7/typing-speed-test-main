@@ -44,9 +44,8 @@ let timerId = null;
 let timerStarted = false;
 let stopwatch = false; // true для режима Passage
 let currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;
-let currentMode = CONFIG.DEFAULT_MODE;
 let currentText = "";
-const fragment = document.createDocumentFragment();
+// const fragment = document.createDocumentFragment();
 
 function startTest() {
   modalNotStarted.style.display = "none";
@@ -131,7 +130,7 @@ async function loadNewPassage(difficulty = CONFIG.DEFAULT_DIFFICULTY) {
     const data = await response.json();
     const passages = data[difficulty];
     currentText = passages[Math.floor(Math.random() * passages.length)].text;
-  } catch (e) {
+  } catch  {
     currentText = CONFIG.FALLBACK_TEXT;
   } finally {
     resetTest();
@@ -278,7 +277,9 @@ function handleResults() {
 
 
 function openModal(modalContent) {
-  modalResalt.style.display = "block";
+  // Показываем модалку, просто удаляя класс скрытия
+  modalResalt.classList.remove("modal--hidden");
+  
   modalArray.forEach((el) => (el.style.display = "none"));
   modalContent.style.display = "flex";
 
@@ -287,6 +288,7 @@ function openModal(modalContent) {
   finalCorrect.textContent = correctChars;
   finalError.textContent = errorCount;
 }
+
 
 
 function resetTest() {
@@ -385,7 +387,8 @@ inputField.addEventListener("input", () => {
 btnRestart.addEventListener("click", async () => { 
     resetTest(); 
     toggleGameScreens(false);
-    modalResalt.style.display = "none";
+   modalResalt.classList.add("modal--hidden");
+
     setButtonState("test");
 
     currentDifficulty = CONFIG.DEFAULT_DIFFICULTY;

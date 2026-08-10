@@ -256,7 +256,6 @@ body {
   padding: .44rem .625rem;
   color: var(--neutral-400);
   cursor: pointer;
-  transition: background-color .3s ease-in-out;
 
   gap: .75rem;
 }
@@ -330,10 +329,6 @@ summary::-webkit-details-marker {
   font-size: .94rem;
 }
 
-.controls__select-arrow {
-  transition: transform .3s ease;
-}
-
 .controls__details[open] .controls__select-arrow {
   transform: rotate(180deg);
 }
@@ -371,7 +366,6 @@ summary::-webkit-details-marker {
   height: 1px;
   opacity: 0;
   background-color: var(--neutral-800);
-  transition: opacity .3s ease;
 }
 
 .test__display--active::after {
@@ -404,7 +398,6 @@ summary::-webkit-details-marker {
   outline: none;
   background-color: var(--Blue-600);
   cursor: pointer;
-  transition: background-color .3s ease;
 
   margin-block-end: .75rem;
   padding-block: 1.12rem;
@@ -506,16 +499,11 @@ summary::-webkit-details-marker {
 
 .modal__confetti {
   position: absolute;
-}
-
-.modal__confetti {
-  position: absolute;
   z-index: 0;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 250px;
-  animation: confettiPopIn .6s ease-out forwards;
   pointer-events: none;
 
   object-fit: cover;
@@ -532,10 +520,6 @@ summary::-webkit-details-marker {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.modal__confetti--hidden {
-  display: none;
 }
 
 .modal__confetti--hidden {
@@ -607,7 +591,7 @@ summary::-webkit-details-marker {
   font-size: 1.5rem;
 }
 
-.modal__stat-value--accuraty {
+.modal__stat-value--accuracy {
   color: var(--Red-500);
 }
 
@@ -629,7 +613,6 @@ summary::-webkit-details-marker {
   display: flex;
   justify-content: center;
   opacity: 0;
-  transition: opacity .3s ease;
   pointer-events: none;
 
   padding-block-end: 9.375rem;
@@ -657,8 +640,6 @@ summary::-webkit-details-marker {
 }
 
 .toolbar__btn[data-state="test"] svg {
-  transition: fill .3s ease;
-
   fill: var(--neutral-0);
 }
 
@@ -680,7 +661,39 @@ summary::-webkit-details-marker {
   fill: var(--neutral-800);
 }
 
-@media (min-width: 768px) {
+@media (prefers-reduced-motion: no-preference) {
+  .controls__label {
+    transition: background-color .3s ease-in-out;
+  }
+
+  .controls__select-arrow {
+    transition: transform .3s ease;
+  }
+
+  .test__display::after {
+    transition: opacity .3s ease;
+  }
+
+  .modal-not-started__btn {
+    transition: background-color .3s ease;
+  }
+
+  .toolbar {
+    transition: opacity .3s ease;
+  }
+
+  .toolbar__btn[data-state="test"] svg {
+    transition: fill .3s ease;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .modal__confetti {
+    animation: confettiPopIn .6s ease-out forwards;
+  }
+}
+
+@media (min-width: 48rem) {
   .header__logo-img {
     width: 16.7rem;
   }
@@ -706,7 +719,7 @@ summary::-webkit-details-marker {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 75rem) {
   .sections-wrapper {
     display: grid;
 
