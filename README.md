@@ -4,7 +4,7 @@
 
 ## 🚀 Демонстрация проекта
 
-- **Живой сайт (Netlify/GitHub Pages):** [Вставьте сюда вашу ссылку на работающий тест]
+- **Живой сайт (Netlify/GitHub Pages):** https://g-snezana7.github.io/typing-speed-test-main/
 
 ## 🛠️ Стек технологий и архитектура
 
